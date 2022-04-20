@@ -5,11 +5,16 @@ let productContainer = document.getElementById("product-container")
 // get the datas from API
 
 async function getDatas(){
-    let datas = await fetch("https://fakestoreapi.com/products?sort=desc");
-     console.log(datas)
-    let fulldatas = await datas.json();
-    console.log(fulldatas)
-    generateHTML(fulldatas);
+ try {
+  let datas = await fetch("https://fakestoreapi.com/products?sort=desc");
+  console.log(datas)
+ let fulldatas = await datas.json();
+ console.log(fulldatas)
+ generateHTML(fulldatas);
+ if(!datas.ok) throw new Error("Failed to get the datas");
+ } catch (error) {
+  console.log(error.message);
+ }
   
 }
 
